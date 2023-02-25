@@ -28,12 +28,17 @@ namespace Enemy
         private GameManager _game_manager;
         [SerializeField]
         private SpriteRenderer _sprite_renderer;
+        [SerializeField]
+        private Animator _animator;
         public static bool ACTIVE;
+        [SerializeField]
+        private float _attack_range;
 
         private void Awake()
         {
             _stun = false;
             _movement_vector = Vector2.zero;
+            _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _sprite_renderer = GetComponent<SpriteRenderer>();
         }
@@ -63,25 +68,26 @@ namespace Enemy
             _rigidbody.velocity = _movement_vector * _movement_speed;
         }
 
-        /*private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.tag.Equals("Player"))
-            {
-                //Kaboom
-                _player_stats.DecreaseHp(_damage);
-                Destroy(this.gameObject);
-            }
-        }*/
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.tag.Equals("Player"))
-                Attack();
+            {
+                _stun = true;
+                _animator.SetBool("attack", true);
+            }
         }
 
         private void Attack()
         {
-
+            if (Vector3.Distance(_player_transform.position, transform.position) <= _attack_range)
+            {
+                _player_stats.DecreaseHp(_damage);
+            }
+            else
+            {
+                _stun = false;
+                _animator.SetBool("attack", false);
+            }
         }
 
         public void ApplyBulletDamage(float damage)

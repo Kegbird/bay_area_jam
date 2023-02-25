@@ -19,10 +19,13 @@ namespace Enemy
         [SerializeField]
         private GameObject _tank_enemy;
         [SerializeField]
-        private float m_delay_between_enemy_spawn;
-
+        private GameObject _meele_enemy;
         [SerializeField]
-        private float _tank_min_threshold;
+        private float m_delay_between_enemy_spawn;
+        [SerializeField]
+        private float _meele_max_threshold;
+        [SerializeField]
+        private float _kamikaze_max_threshold;
 
 
         private void Awake()
@@ -65,8 +68,10 @@ namespace Enemy
 
             GameObject enemy;
             float enemy_seed = Random.Range(0, 100);
-            if (enemy_seed <= _tank_min_threshold)
+            if (enemy_seed <= _kamikaze_max_threshold)
                  enemy = GameObject.Instantiate(_kamikaze_enemy, enemy_position, Quaternion.identity);
+            else if (enemy_seed <= _meele_max_threshold)
+                enemy = GameObject.Instantiate(_meele_enemy, enemy_position, Quaternion.identity);
             else
                 enemy = GameObject.Instantiate(_tank_enemy, enemy_position, Quaternion.identity);
 
