@@ -4,16 +4,14 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyKamikaze : MonoBehaviour, EnemyInterface
+    public class EnemyTank : MonoBehaviour, EnemyInterface
     {
         [SerializeField]
-        private bool _stun; 
+        private bool _stun;
         [SerializeField]
         private Transform _player_transform;
         [SerializeField]
         private PlayerStats _player_stats;
-        [SerializeField]
-        private PlayerAnimator _player_animator;
         [SerializeField]
         private float _hp;
         [SerializeField]
@@ -34,7 +32,7 @@ namespace Enemy
 
         private void Awake()
         {
-            _stun= false;
+            _stun = false;
             _movement_vector = Vector2.zero;
             _rigidbody = GetComponent<Rigidbody2D>();
             _sprite_renderer = GetComponent<SpriteRenderer>();
@@ -45,7 +43,6 @@ namespace Enemy
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             _player_transform = player.gameObject.transform;
             _player_stats = player.GetComponent<PlayerStats>();
-            _player_animator = player.GetComponent<PlayerAnimator>();
 
             GameObject _logic = GameObject.FindGameObjectWithTag("Logic");
             _game_manager = _logic.GetComponent<GameManager>();
@@ -66,15 +63,25 @@ namespace Enemy
             _rigidbody.velocity = _movement_vector * _movement_speed;
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        /*private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.tag.Equals("Player"))
             {
                 //Kaboom
-                _player_animator.HitFeedback();
                 _player_stats.DecreaseHp(_damage);
                 Destroy(this.gameObject);
             }
+        }*/
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag.Equals("Player"))
+                Attack();
+        }
+
+        private void Attack()
+        {
+
         }
 
         public void ApplyBulletDamage(float damage)
@@ -99,9 +106,9 @@ namespace Enemy
 
         private IEnumerator HitFeedbackCoroutine()
         {
-            _sprite_renderer.color = new Color(1, 0, 0);
-            yield return new WaitForSeconds(0.5f);
             _sprite_renderer.color = new Color(1, 1, 1);
+            yield return new WaitForSeconds(0.5f);
+            _sprite_renderer.color = new Color(1, 0, 0);
         }
     }
 }

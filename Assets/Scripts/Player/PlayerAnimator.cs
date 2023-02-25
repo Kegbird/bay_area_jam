@@ -6,6 +6,8 @@ using Utility;
 public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField]
+    private SpriteRenderer _sprite_renderer;
+    [SerializeField]
     private Animator _animator;
     [SerializeField]
     private RuntimeAnimatorController _normal_animator;
@@ -25,6 +27,7 @@ public class PlayerAnimator : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _sprite_renderer = GetComponent<SpriteRenderer>();
     }
 
     public void Switch(DiceBuild dice_build)
@@ -89,5 +92,18 @@ public class PlayerAnimator : MonoBehaviour
         _animator.SetBool("right", false);
         _animator.SetBool("down", false);
         _animator.SetBool("up", false);
+    }
+
+    public void HitFeedback()
+    {
+        StopAllCoroutines();
+        StartCoroutine(HitFeedbackCoroutine());
+    }
+
+    private IEnumerator HitFeedbackCoroutine()
+    {
+        _sprite_renderer.color = new Color(1, 0, 0);
+        yield return new WaitForSeconds(0.5f);
+        _sprite_renderer.color = new Color(1, 1, 1);
     }
 }

@@ -917,7 +917,9 @@ MonoBehaviour:
   _game_manager: {fileID: 0}
   _player_transform: {fileID: 0}
   _kamikaze_enemy: {fileID: 4107246895300818818, guid: 09247dde26c34eb4882d38e96393ff49, type: 3}
+  _tank_enemy: {fileID: 4107246895300818818, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
   m_delay_between_enemy_spawn: 2
+  _tank_min_threshold: 80
 --- !u!114 &193046202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1677,6 +1679,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624606551}
   m_CullTransparentMesh: 1
+--- !u!1001 &682908106
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4107246895300818818, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_Name
+      value: Tanky_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818818, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818819, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818819, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818819, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818819, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818819, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818819, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818819, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818819, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818819, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818819, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107246895300818819, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
 --- !u!1 &813241790
 GameObject:
   m_ObjectHideFlags: 0

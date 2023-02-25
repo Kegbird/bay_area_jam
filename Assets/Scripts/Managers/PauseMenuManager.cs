@@ -31,6 +31,7 @@ public class PauseMenuManager : MonoBehaviour
             _pause = true;
             Time.timeScale = 0f;
             EnemyKamikaze.ACTIVE = false;
+            EnemyTank.ACTIVE = false;
             _pause_panel.SetActive(true);
         }
     }
@@ -40,6 +41,7 @@ public class PauseMenuManager : MonoBehaviour
         _pause = false;
         Time.timeScale = 1f;
         EnemyKamikaze.ACTIVE = true;
+        EnemyTank.ACTIVE = true;
         _pause_panel.SetActive(false);
     }
 
@@ -47,6 +49,7 @@ public class PauseMenuManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         EnemyKamikaze.ACTIVE = false;
+        EnemyTank.ACTIVE = false;
         StartCoroutine(ShowBlackScreen());
     }
 

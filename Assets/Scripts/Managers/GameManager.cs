@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         SCORE = 0;
         SECONDS_OF_LIFE = 0;
         EnemyKamikaze.ACTIVE = true;
+        EnemyTank.ACTIVE = true;
         _score_text.text = SCORE.ToString();
         _audio_source = GetComponent<AudioSource>();
     }
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour
             _player_controller.Disable();
             _player_firing.Disable();
             EnemyKamikaze.ACTIVE = false;
+            EnemyTank.ACTIVE = false;
             ShowFinalScorePanel();
         }
     }
