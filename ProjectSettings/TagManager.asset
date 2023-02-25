@@ -8,6 +8,8 @@ TagManager:
   - Logic
   - Map
   - Bullet
+  - Enemy
+  - Hp
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - UI
   - Player
   - Bullet
-  - 
-  - 
+  - Enemy
+  - Hp
   - 
   - 
   - 

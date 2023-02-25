@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public static int SCORE;
     [SerializeField]
+    public static float SECONDS_OF_LIFE;
+    [SerializeField]
     private Image _black_screen;
     [SerializeField]
     private AudioSource _audio_source;
@@ -30,12 +32,14 @@ public class GameManager : MonoBehaviour
     {
         _game_over = false;
         SCORE = 0;
+        SECONDS_OF_LIFE = 0;
         _score_text.text = SCORE.ToString();
         _audio_source = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
+        SECONDS_OF_LIFE = Time.time;
         StartCoroutine(HideBlackScreen());
     }
 
@@ -52,12 +56,18 @@ public class GameManager : MonoBehaviour
 
         if (_player_stats.GetCurrentHp() <= 0)
         {
+            SECONDS_OF_LIFE = Time.time - SECONDS_OF_LIFE;
             _game_over = true;
             _player_shake.Disable();
             _player_controller.Disable();
             _player_firing.Disable();
             StartCoroutine(ShowBlackScreenAndPlayerScore());
         }
+    }
+
+    public bool IsGameOver()
+    {
+        return _game_over;
     }
 
     private IEnumerator ShowBlackScreenAndPlayerScore()

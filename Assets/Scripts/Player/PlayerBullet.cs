@@ -1,3 +1,4 @@
+using Enemy;
 using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
@@ -19,13 +20,10 @@ public class PlayerBullet : MonoBehaviour
         _rigidbody.AddForce(aim_direction * _bullet_speed, ForceMode2D.Impulse);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag.Equals("Enemy"))
-        {
-            //Decrease enemies hp
-        }
-
+        if (collision.gameObject.tag.Equals("Enemy"))
+            collision.gameObject.GetComponent<EnemyInterface>().ApplyBulletDamage(_damage);
         Destroy(this.gameObject);
     }
 
