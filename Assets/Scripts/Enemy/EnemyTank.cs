@@ -33,6 +33,8 @@ namespace Enemy
         public static bool ACTIVE;
         [SerializeField]
         private float _attack_range;
+        [SerializeField]
+        private CircleCollider2D _circle_collider;
 
         private void Awake()
         {
@@ -41,6 +43,7 @@ namespace Enemy
             _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _sprite_renderer = GetComponent<SpriteRenderer>();
+            _circle_collider = GetComponent<CircleCollider2D>();
         }
 
         private void Start()
@@ -56,6 +59,21 @@ namespace Enemy
         private void Update()
         {
             _movement_vector = (_player_transform.position - transform.position).normalized;
+            SetAnimationParams();
+        }
+
+        public void SetAnimationParams()
+        {
+            if (_movement_vector.x > 0)
+            {
+                _animator.SetBool("right", true);
+                _animator.SetBool("left", false);
+            }
+            else
+            {
+                _animator.SetBool("left", true);
+                _animator.SetBool("right", false);
+            }
         }
 
         private void FixedUpdate()
@@ -79,7 +97,8 @@ namespace Enemy
 
         private void Attack()
         {
-            if (Vector3.Distance(_player_transform.position, transform.position) <= _attack_range)
+            float distance = Vector3.Distance(_player_transform.position, transform.position);
+            if (distance <= _attack_range)
             {
                 _player_stats.DecreaseHp(_damage);
             }
@@ -94,27 +113,39 @@ namespace Enemy
         {
             _hp -= damage;
             StopAllCoroutines();
-            StartCoroutine(Stun());
-            StartCoroutine(HitFeedbackCoroutine());
             if (_hp <= 0)
             {
+                _sprite_renderer.color = new Color(1, 1, 1);
+                _stun = true;
                 _game_manager.IncreaseScore(points);
-                Destroy(this.gameObject);
+                _circle_collider.enabled = false;
+                _animator.SetBool("attack", false);
+                _animator.SetBool("dead", true);
             }
+            else
+            {
+                StartCoroutine(Stun());
+                StartCoroutine(HitFeedbackCoroutine());
+            }
+        }
+
+        public void Die()
+        {
+            Destroy(this.gameObject);
         }
 
         private IEnumerator Stun()
         {
             _stun = true;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.2f);
             _stun = false;
         }
 
         private IEnumerator HitFeedbackCoroutine()
         {
-            _sprite_renderer.color = new Color(1, 1, 1);
-            yield return new WaitForSeconds(0.5f);
             _sprite_renderer.color = new Color(1, 0, 0);
+            yield return new WaitForSeconds(0.5f);
+            _sprite_renderer.color = new Color(1, 1, 1);
         }
     }
 }

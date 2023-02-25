@@ -918,10 +918,10 @@ MonoBehaviour:
   _player_transform: {fileID: 0}
   _kamikaze_enemy: {fileID: 4107246895300818818, guid: 09247dde26c34eb4882d38e96393ff49, type: 3}
   _tank_enemy: {fileID: 4107246895300818818, guid: add4a40ccd56194418d863f6f4b2ea9e, type: 3}
-  _meele_enemy: {fileID: 0}
+  _meele_enemy: {fileID: 4107246895300818818, guid: bbdc0f41b17eaf849802a6a25b972e2b, type: 3}
   m_delay_between_enemy_spawn: 2
-  _meele_max_threshold: 0
-  _kamikaze_max_threshold: 0
+  _meele_max_threshold: 80
+  _kamikaze_max_threshold: 50
 --- !u!114 &193046202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1225,7 +1225,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -3349,7 +3349,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

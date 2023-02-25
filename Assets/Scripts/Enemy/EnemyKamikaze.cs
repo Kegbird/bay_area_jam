@@ -30,14 +30,20 @@ namespace Enemy
         private GameManager _game_manager;
         [SerializeField]
         private SpriteRenderer _sprite_renderer;
+        [SerializeField]
+        private Animator _animator;
+        [SerializeField]
+        private CircleCollider2D _circle_collider;
         public static bool ACTIVE;
 
         private void Awake()
         {
             _stun= false;
             _movement_vector = Vector2.zero;
+            _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _sprite_renderer = GetComponent<SpriteRenderer>();
+            _circle_collider = GetComponent<CircleCollider2D>();
         }
 
         private void Start()
@@ -51,15 +57,31 @@ namespace Enemy
             _game_manager = _logic.GetComponent<GameManager>();
         }
 
+
+        public void SetAnimationParams()
+        {
+            if (_movement_vector.x > 0)
+            {
+                _animator.SetBool("right", true);
+                _animator.SetBool("left", false);
+            }
+            else
+            {
+                _animator.SetBool("left", true);
+                _animator.SetBool("right", false);
+            }
+        }
+
         private void Update()
         {
             _movement_vector = (_player_transform.position - transform.position).normalized;
+            SetAnimationParams();
         }
 
         private void FixedUpdate()
         {
             if (_stun || !ACTIVE)
-            {
+            { 
                 _rigidbody.velocity = Vector2.zero;
                 return;
             }
@@ -70,10 +92,11 @@ namespace Enemy
         {
             if (collision.gameObject.tag.Equals("Player"))
             {
-                //Kaboom
+                _stun = true;
                 _player_animator.HitFeedback();
                 _player_stats.DecreaseHp(_damage);
-                Destroy(this.gameObject);
+                _circle_collider.enabled = false;
+                _animator.SetBool("dead", true);
             }
         }
 
@@ -81,13 +104,24 @@ namespace Enemy
         {
             _hp -= damage;
             StopAllCoroutines();
-            StartCoroutine(Stun());
-            StartCoroutine(HitFeedbackCoroutine());
             if (_hp <= 0)
             {
+                _sprite_renderer.color = new Color(1, 1, 1);
+                _stun = true;
                 _game_manager.IncreaseScore(points);
-                Destroy(this.gameObject);
+                _circle_collider.enabled = false;
+                _animator.SetBool("dead", true);
             }
+            else
+            {
+                StartCoroutine(Stun());
+                StartCoroutine(HitFeedbackCoroutine());
+            }
+        }
+
+        public void Die()
+        {
+            Destroy(this.gameObject);
         }
 
         private IEnumerator Stun()

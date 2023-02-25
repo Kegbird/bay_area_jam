@@ -44,7 +44,7 @@ namespace Player
         {
             _movement_vector.x = Input.GetAxisRaw("Horizontal");
             _movement_vector.y = Input.GetAxisRaw("Vertical");
-            _player_animator.SetAnimationParams(_movement_vector);
+            //_player_animator.SetAnimationParams(_movement_vector);
         }
 
         private void FixedUpdate()

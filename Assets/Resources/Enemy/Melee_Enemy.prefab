@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 4107246895300818817}
   - component: {fileID: 4107246895300818816}
   - component: {fileID: 5670566525369307988}
+  - component: {fileID: 4315818711638614832}
   m_Layer: 8
-  m_Name: DoubleAttack_Enemy
+  m_Name: Melee_Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: -234109265
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 03f4aecf409f5f744a58b31a8bd38cae, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 1427000226, guid: f9d10ff18f14b5b4f827554128e140e0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -112,7 +113,8 @@ MonoBehaviour:
   _game_manager: {fileID: 0}
   _sprite_renderer: {fileID: 0}
   _animator: {fileID: 0}
-  _attack_range: 0
+  _attack_range: 1.5
+  _circle_collider: {fileID: 0}
 --- !u!50 &4107246895300818817
 Rigidbody2D:
   serializedVersion: 4
@@ -147,9 +149,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.28}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.25
 --- !u!58 &5670566525369307988
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -163,6 +165,26 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.28}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.25
+--- !u!95 &4315818711638614832
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4107246895300818818}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: be0d10dbc5ccefa43b319204eee4c935, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
