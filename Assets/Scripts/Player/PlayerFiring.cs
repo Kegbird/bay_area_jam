@@ -40,6 +40,24 @@ public class PlayerFiring : MonoBehaviour
     private Sprite _king_weapon;
     [SerializeField]
     private PlayerShake _player_shake;
+    //Audio source
+    [SerializeField]
+    private AudioSource _audio_source;
+    //Audio clips
+    [SerializeField]
+    private AudioClip _fire_audio_clip;
+    [SerializeField]
+    private AudioClip _king_fire_audio_clip;
+    [SerializeField]
+    private AudioClip _gentleman_fire_audio_clip;
+    [SerializeField]
+    private AudioClip _skater_fire_audio_clip;
+    [SerializeField]
+    private AudioClip _normal_fire_audio_clip;
+    [SerializeField]
+    private AudioClip _cowboy_fire_audio_clip;
+    [SerializeField]
+    private AudioClip _ninja_fire_audio_clip;
 
     private void Awake()
     {
@@ -71,39 +89,75 @@ public class PlayerFiring : MonoBehaviour
             _last_fire_timestamp = Time.time;
 
             if (_player_shake.GetCurrentBuild() == DiceBuild.NINJA)
-                StartCoroutine(NinjaFireMode(weapon_hole_position, aim_direction, rotation));
+                StartCoroutine(NinjaFireMode(weapon_hole_position));
             else if (_player_shake.GetCurrentBuild() == DiceBuild.COWBOY)
-                StartCoroutine(CowboyFireMode(weapon_hole_position, aim_direction, rotation));
+                StartCoroutine(CowboyFireMode(weapon_hole_position));
             else
             {
                 GameObject bullet = GameObject.Instantiate(_bullet, weapon_hole_position, rotation);
                 bullet.SetActive(true);
                 bullet.GetComponent<PlayerBullet>().Fire(aim_direction);
+                //_audio_source.Play();
             }
         }
     }
+    public void Disable()
+    {
+        _active = false;
+        _weapon.gameObject.SetActive(false);
+    }
 
-    private IEnumerator NinjaFireMode(Vector3 weapon_hole_position, Vector3 aim_direction, Quaternion rotation)
+    private IEnumerator NinjaFireMode(Vector3 weapon_hole_position)
     {
         float time_between_shots = 0.1f;
         for(int i=0; i<3; i++)
         {
+            Vector3 mouse_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouse_position.z = transform.position.z;
+
+            Vector3 aim_direction = (mouse_position - transform.position).normalized;
+            Vector3 weapon_position = Vector3.zero;
+            weapon_position.x = transform.position.x + aim_direction.x;
+            weapon_position.y = transform.position.y + aim_direction.y;
+            weapon_position.z = transform.position.z;
+
+            float angle = Mathf.Atan2(aim_direction.y, aim_direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            _weapon.transform.rotation = rotation;
+            _weapon.transform.position = weapon_position;
+
             GameObject bullet = GameObject.Instantiate(_bullet, weapon_hole_position, rotation);
             bullet.SetActive(true);
             bullet.GetComponent<PlayerBullet>().Fire(aim_direction);
+            //_audio_source.Play();
             yield return new WaitForSeconds(time_between_shots);
         }
         yield return null;
     }
 
-    private IEnumerator CowboyFireMode(Vector3 weapon_hole_position, Vector3 aim_direction, Quaternion rotation)
+    private IEnumerator CowboyFireMode(Vector3 weapon_hole_position)
     {
         float time_between_shots = 0.2f;
         for (int i = 0; i < 2; i++)
         {
+            Vector3 mouse_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouse_position.z = transform.position.z;
+
+            Vector3 aim_direction = (mouse_position - transform.position).normalized;
+            Vector3 weapon_position = Vector3.zero;
+            weapon_position.x = transform.position.x + aim_direction.x;
+            weapon_position.y = transform.position.y + aim_direction.y;
+            weapon_position.z = transform.position.z;
+
+            float angle = Mathf.Atan2(aim_direction.y, aim_direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            _weapon.transform.rotation = rotation;
+            _weapon.transform.position = weapon_position;
+
             GameObject bullet = GameObject.Instantiate(_bullet, weapon_hole_position, rotation);
             bullet.SetActive(true);
             bullet.GetComponent<PlayerBullet>().Fire(aim_direction);
+            //_audio_source.Play();
             yield return new WaitForSeconds(time_between_shots);
         }
         yield return null;
@@ -115,42 +169,49 @@ public class PlayerFiring : MonoBehaviour
         {
             case DiceBuild.NORMAL:
                 _weapon.GetComponent<SpriteRenderer>().sprite = _normal_weapon;
+                _fire_audio_clip = _normal_fire_audio_clip;
                 _bullet = _normal_bullet;
                 _active = true;
                 _fire_cd = 1f;
                 break;
             case DiceBuild.NINJA:
                 _weapon.GetComponent<SpriteRenderer>().sprite = _ninja_weapon;
+                _fire_audio_clip = _ninja_fire_audio_clip;
                 _bullet = _ninja_bullet;
                 _active = true;
                 _fire_cd = 1f;
                 break;
             case DiceBuild.GENTLEMAN:
                 _weapon.GetComponent<SpriteRenderer>().sprite = _gentleman_weapon;
+                _fire_audio_clip = _gentleman_fire_audio_clip;
                 _bullet = _gentleman_bullet;
                 _active = true;
                 _fire_cd = 3f;
                 break;
             case DiceBuild.SKATER:
                 _weapon.GetComponent<SpriteRenderer>().sprite = _skater_weapon;
+                _fire_audio_clip = _skater_fire_audio_clip;
                 _bullet = _skater_bullet;
                 _active = true;
                 _fire_cd = 2f;
                 break;
             case DiceBuild.COWBOY:
                 _weapon.GetComponent<SpriteRenderer>().sprite = _cowboy_weapon;
+                _fire_audio_clip = _cowboy_fire_audio_clip;
                 _bullet = _cowboy_bullet;
                 _active = true;
                 _fire_cd = 2f;
                 break;
             case DiceBuild.KING:
                 _weapon.GetComponent<SpriteRenderer>().sprite = _king_weapon;
+                _fire_audio_clip = _king_fire_audio_clip;
                 _bullet = _king_bullet;
                 _active = true;
                 _fire_cd = 0.2f;
                 break;
             case DiceBuild.CHINCHILLA:
                 _weapon.GetComponent<SpriteRenderer>().sprite = null;
+                _fire_audio_clip = null;
                 _active = false;
                 break;
         }

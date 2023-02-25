@@ -19,10 +19,13 @@ namespace Player
         private bool _alive;
         [SerializeField]
         private Rigidbody2D _rigidbody;
+        [SerializeField]
+        private PlayerAnimator _player_animator;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
+            _player_animator = GetComponent<PlayerAnimator>();
         }
 
         private void Start()
@@ -31,10 +34,16 @@ namespace Player
             _alive = true;
         }
 
+        public void Disable()
+        {
+            _active = false;
+        }
+
         private void Update()
         {
             _movement_vector.x = Input.GetAxisRaw("Horizontal");
             _movement_vector.y = Input.GetAxisRaw("Vertical");
+            _player_animator.SetAnimationParams(_movement_vector);
         }
 
         private void FixedUpdate()
