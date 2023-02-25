@@ -28,7 +28,7 @@ public class PlayerStats : MonoBehaviour
 
     public void DecreaseHp(float decrement)
     {
-        _hp = Mathf.Clamp(_hp + decrement, 0, 100);
+        _hp = Mathf.Clamp(_hp - decrement, 0, 100);
         _player_ui.UpdateHp(_hp);
     }
 }

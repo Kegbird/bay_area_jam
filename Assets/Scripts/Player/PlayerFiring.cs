@@ -186,21 +186,21 @@ public class PlayerFiring : MonoBehaviour
                 _fire_audio_clip = _gentleman_fire_audio_clip;
                 _bullet = _gentleman_bullet;
                 _active = true;
-                _fire_cd = 3f;
+                _fire_cd = 1.5f;
                 break;
             case DiceBuild.SKATER:
                 _weapon.GetComponent<SpriteRenderer>().sprite = _skater_weapon;
                 _fire_audio_clip = _skater_fire_audio_clip;
                 _bullet = _skater_bullet;
                 _active = true;
-                _fire_cd = 2f;
+                _fire_cd = 0.5f;
                 break;
             case DiceBuild.COWBOY:
                 _weapon.GetComponent<SpriteRenderer>().sprite = _cowboy_weapon;
                 _fire_audio_clip = _cowboy_fire_audio_clip;
                 _bullet = _cowboy_bullet;
                 _active = true;
-                _fire_cd = 2f;
+                _fire_cd = 1.3f;
                 break;
             case DiceBuild.KING:
                 _weapon.GetComponent<SpriteRenderer>().sprite = _king_weapon;

@@ -26,6 +26,7 @@ namespace Enemy
         private Rigidbody2D _rigidbody;
         [SerializeField]
         private GameManager _game_manager;
+        public static bool ACTIVE;
 
         private void Awake()
         {
@@ -51,8 +52,11 @@ namespace Enemy
 
         private void FixedUpdate()
         {
-            if (_stun)
+            if (_stun || !ACTIVE)
+            {
+                _rigidbody.velocity = Vector2.zero;
                 return;
+            }
             _rigidbody.velocity = _movement_vector * _movement_speed;
         }
 

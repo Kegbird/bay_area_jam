@@ -1,9 +1,13 @@
+using Enemy;
 using Player;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Utility;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,12 +31,19 @@ public class GameManager : MonoBehaviour
     private PlayerShake _player_shake;
     [SerializeField]
     private TextMeshProUGUI _score_text;
+    [SerializeField]
+    private GameObject _final_score_panel;
+    [SerializeField]
+    private TextMeshProUGUI _final_score_text;
+    [SerializeField]
+    private TextMeshProUGUI _survival_time_text;
 
     private void Awake()
     {
         _game_over = false;
         SCORE = 0;
         SECONDS_OF_LIFE = 0;
+        EnemyKamikaze.ACTIVE = true;
         _score_text.text = SCORE.ToString();
         _audio_source = GetComponent<AudioSource>();
     }
@@ -61,8 +72,21 @@ public class GameManager : MonoBehaviour
             _player_shake.Disable();
             _player_controller.Disable();
             _player_firing.Disable();
-            StartCoroutine(ShowBlackScreenAndPlayerScore());
+            EnemyKamikaze.ACTIVE = false;
+            ShowFinalScorePanel();
         }
+    }
+
+    public void ShowFinalScorePanel()
+    {
+        TimeSpan time_span = TimeSpan.FromSeconds(SECONDS_OF_LIFE);
+        _survival_time_text.text = string.Format("{1:D2}m:{2:D2}s",
+                        time_span.Hours,
+                        time_span.Minutes,
+                        time_span.Seconds,
+                        time_span.Milliseconds);
+        _final_score_text.text = GameManager.SCORE.ToString();
+        _final_score_panel.SetActive(true);
     }
 
     public bool IsGameOver()
@@ -70,7 +94,12 @@ public class GameManager : MonoBehaviour
         return _game_over;
     }
 
-    private IEnumerator ShowBlackScreenAndPlayerScore()
+    public void ReturnToMainMenu()
+    {
+        StartCoroutine(ShowBlackScreen());
+    }
+
+    private IEnumerator ShowBlackScreen()
     {
         _black_screen.raycastTarget = true;
         float i = 0;
@@ -82,6 +111,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         _black_screen.raycastTarget = false;
+        SceneManager.LoadScene(GameScenes.MAIN_MENU_SCENE_INDEX);
     }
 
     private IEnumerator HideBlackScreen()

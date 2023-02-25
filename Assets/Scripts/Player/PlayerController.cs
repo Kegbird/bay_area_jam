@@ -37,6 +37,7 @@ namespace Player
         public void Disable()
         {
             _active = false;
+            _rigidbody.velocity = Vector2.zero;
         }
 
         private void Update()
@@ -64,7 +65,7 @@ namespace Player
                     _multiplier = 3f;
                     break;
                 case DiceBuild.GENTLEMAN:
-                    _multiplier = 0.3f;
+                    _multiplier = 0.5f;
                     break;
                 case DiceBuild.SKATER:
                     _multiplier = 2f;
@@ -73,7 +74,7 @@ namespace Player
                     _multiplier = 1f;
                     break;
                 case DiceBuild.KING:
-                    _multiplier = 0.5f;
+                    _multiplier = 0.7f;
                     break;
                 case DiceBuild.CHINCHILLA:
                     _multiplier = 4f;

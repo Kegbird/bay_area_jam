@@ -1,3 +1,4 @@
+using Enemy;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,7 @@ public class PauseMenuManager : MonoBehaviour
         {
             _pause = true;
             Time.timeScale = 0f;
+            EnemyKamikaze.ACTIVE = false;
             _pause_panel.SetActive(true);
         }
     }
@@ -37,12 +39,14 @@ public class PauseMenuManager : MonoBehaviour
     {
         _pause = false;
         Time.timeScale = 1f;
+        EnemyKamikaze.ACTIVE = true;
         _pause_panel.SetActive(false);
     }
 
     public void QuitButtonClick()
     {
         Time.timeScale = 1f;
+        EnemyKamikaze.ACTIVE = false;
         StartCoroutine(ShowBlackScreen());
     }
 

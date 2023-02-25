@@ -39,6 +39,7 @@ public class EnemySpawner : MonoBehaviour
     {
         while(!_game_manager.IsGameOver())
         {
+            GenerateEnemy();
             yield return new WaitForSeconds(m_delay_between_enemy_spawn);
         }
         yield return null;
@@ -46,6 +47,15 @@ public class EnemySpawner : MonoBehaviour
 
     private void GenerateEnemy()
     {
+        Vector3 enemy_position = Vector3.zero;
+        enemy_position.z = _player_transform.position.z;
 
+        float angle = Random.Range(0, 360f) * Mathf.Deg2Rad;
+        
+        enemy_position.x = _player_transform.position.x + Mathf.Cos(angle) * _spawn_distance;
+        enemy_position.y = _player_transform.position.y + Mathf.Sin(angle) * _spawn_distance;
+
+        GameObject enemy = GameObject.Instantiate(_kamikaze_enemy, enemy_position, Quaternion.identity);
+        enemy.SetActive(true);
     }
 }

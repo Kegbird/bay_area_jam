@@ -70,6 +70,7 @@ public class PlayerShake : MonoBehaviour
             _last_shake_timestamp = Time.time;
             _last_buld_reset_timestamp = Time.time;
             _player_ui.ShowBuildBar();
+            _player_ui.SetBuildText(_build.ToString());
         }
         _player_ui.UpdateShakeBar((Time.time - _last_shake_timestamp) / _shake_cd);
 

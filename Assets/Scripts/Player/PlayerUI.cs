@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class PlayerUI : MonoBehaviour
     private Image _build_bar;
     [SerializeField]
     private Image _hp_bar;
+    [SerializeField]
+    private TextMeshProUGUI _build_text;
 
     public void UpdateHp(float hp)
     {
@@ -24,12 +27,18 @@ public class PlayerUI : MonoBehaviour
 
     public void HideBuildBar()
     {
+        _build_text.text = "";
         _build_bar.gameObject.SetActive(false);
     }
 
     public void ShowBuildBar()
     {
         _build_bar.gameObject.SetActive(true);
+    }
+
+    public void SetBuildText(string build_name)
+    {
+        _build_text.text = build_name;
     }
 
     public void UpdateShakeBar(float percentage)
