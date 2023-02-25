@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 
 namespace Player
 {
@@ -8,6 +9,8 @@ namespace Player
     {
         [SerializeField]
         private float _movement_speed;
+        [SerializeField]
+        private float _multiplier;
         [SerializeField]
         private Vector3 _movement_vector;
         [SerializeField]
@@ -38,7 +41,35 @@ namespace Player
         {
             if (!_active || !_alive)
                 return;
-            _rigidbody.velocity = _movement_vector * _movement_speed;
+            _rigidbody.velocity = _movement_vector * _movement_speed * _multiplier;
+        }
+
+        public void Switch(DiceBuild dice_build)
+        {
+            switch (dice_build)
+            {
+                case DiceBuild.NORMAL:
+                    _multiplier = 1f;
+                    break;
+                case DiceBuild.NINJA:
+                    _multiplier = 3f;
+                    break;
+                case DiceBuild.GENTLEMAN:
+                    _multiplier = 0.3f;
+                    break;
+                case DiceBuild.SKATER:
+                    _multiplier = 2f;
+                    break;
+                case DiceBuild.COWBOY:
+                    _multiplier = 1f;
+                    break;
+                case DiceBuild.KING:
+                    _multiplier = 0.5f;
+                    break;
+                case DiceBuild.CHINCHILLA:
+                    _multiplier = 4f;
+                    break;
+            }
         }
     }
 }

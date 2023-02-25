@@ -524,7 +524,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1023418209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.52, y: 2.72, z: -0.0035428712}
+  m_LocalPosition: {x: 3.52, y: 2.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -645,6 +645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movement_speed: 5
+  _multiplier: 0
   _movement_vector: {x: 0, y: 0, z: 0}
   _active: 0
   _alive: 0
@@ -681,9 +682,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8741211c138612846a304ae138886599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bullet: {fileID: 7102498792443883281, guid: eba16fd1faa7c9949945f0283c0b01a1, type: 3}
   _last_fire_timestamp: 0
   _fire_cd: 0
   _weapon: {fileID: 1380678550}
+  _active: 0
+  _normal_bullet: {fileID: 7102498792443883281, guid: eba16fd1faa7c9949945f0283c0b01a1, type: 3}
+  _ninja_bullet: {fileID: 7102498792443883281, guid: 0ae809faf23bf424b9144b8f389ff8f3, type: 3}
+  _gentleman_bullet: {fileID: 7102498792443883281, guid: 3e27db6b355259b448590db795008dd4, type: 3}
+  _cowboy_bullet: {fileID: 7102498792443883281, guid: ae901c7c42c6ada4ea4077d7596275d1, type: 3}
+  _skater_bullet: {fileID: 7102498792443883281, guid: 1e2c8ea68ddd63844866ed4054ea02c9, type: 3}
+  _king_bullet: {fileID: 7102498792443883281, guid: 2332d1817d9997046be2bcdcc9a421c4, type: 3}
+  _normal_weapon: {fileID: 21300000, guid: 6d149989b8c82db47b7f0fc666d24a26, type: 3}
+  _gentleman_weapon: {fileID: 21300000, guid: f0f22fc96395ffa4d824730d0c7058f9, type: 3}
+  _cowboy_weapon: {fileID: 21300000, guid: f0f22fc96395ffa4d824730d0c7058f9, type: 3}
+  _ninja_weapon: {fileID: 21300000, guid: f0f22fc96395ffa4d824730d0c7058f9, type: 3}
+  _skater_weapon: {fileID: 21300000, guid: f0f22fc96395ffa4d824730d0c7058f9, type: 3}
+  _king_weapon: {fileID: 21300000, guid: f0f22fc96395ffa4d824730d0c7058f9, type: 3}
 --- !u!114 &1023418217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,6 +714,10 @@ MonoBehaviour:
   _build: 0
   _build_reset_cd: 10
   _shake_cd: 1
+  _last_shake_timestamp: 0
+  _last_buld_reset_timestamp: 0
+  _player_controller: {fileID: 0}
+  _player_firing: {fileID: 0}
 --- !u!1 &1380678550
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,7 +791,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 68e5a78013e33f247822a837e55b0ab4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6d149989b8c82db47b7f0fc666d24a26, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

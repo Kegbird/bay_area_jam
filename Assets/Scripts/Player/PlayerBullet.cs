@@ -1,18 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private float _bullet_speed;
+    [SerializeField]
+    private Rigidbody2D _rigidbody;
+    [SerializeField]
+    private float _damage;
+
+    private void Awake()
     {
-        
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Fire(Vector3 aim_direction)
     {
-        
+        _rigidbody.AddForce(aim_direction * _bullet_speed, ForceMode2D.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag.Equals("Enemy"))
+        {
+            //Decrease enemies hp
+        }
+
+        Destroy(this.gameObject);
+    }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(this.gameObject);
     }
 }
