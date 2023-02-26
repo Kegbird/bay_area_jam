@@ -58,7 +58,6 @@ public class PlayerShake : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time - _last_shake_timestamp >= _shake_cd)
         {
-            //shake
             List<DiceBuild> dice_builds = new List<DiceBuild>();
             for(int i=1; i<=6; i++)
             {
@@ -88,8 +87,12 @@ public class PlayerShake : MonoBehaviour
                 StartCoroutine(ShakeAnimation());
                 _player_ui.HideBuildBar();
             }
+            _player_ui.UpdateBuildBar(1 - (Time.time - _last_buld_reset_timestamp) / _build_reset_cd);
         }
-        _player_ui.UpdateBuildBar(1-(Time.time - _last_buld_reset_timestamp) / _build_reset_cd);
+        else
+        {
+            _player_ui.UpdateBuildBar(1f);
+        }
     }
 
     IEnumerator ShakeAnimation()

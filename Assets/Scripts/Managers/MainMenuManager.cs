@@ -11,6 +11,7 @@ namespace Managers
     {
         public Image _black_screen;
         public TextMeshProUGUI _authors_text;
+        public Image _authors_panel;
         public Image _commands_image;
         public Button _play_button;
         public Button _back_button;
@@ -19,8 +20,13 @@ namespace Managers
         public Button _exit_button;
         public AudioSource _audio_source;
 
+        public Texture2D cursorTexture;
+        public CursorMode cursorMode = CursorMode.Auto;
+        public Vector2 hotSpot = Vector2.zero;
+
         private void Awake()
         {
+            Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
             _audio_source = GetComponent<AudioSource>();
         }
 
@@ -48,6 +54,7 @@ namespace Managers
             _exit_button.gameObject.SetActive(false);
             _play_button.gameObject.SetActive(false);
 
+            _authors_panel.gameObject.SetActive(true);
             _authors_text.gameObject.SetActive(true);
             _back_button.gameObject.SetActive(true);
         }
@@ -56,6 +63,7 @@ namespace Managers
         {
             _commands_image.gameObject.SetActive(false);
             _authors_text.gameObject.SetActive(false);
+            _authors_panel.gameObject.SetActive(false);
             _back_button.gameObject.SetActive(false);
 
             _credits_button.gameObject.SetActive(true);
@@ -90,7 +98,7 @@ namespace Managers
             while (i >= 0)
             {
                 i -= Time.deltaTime;
-                _audio_source.volume = 1f - i;
+                _audio_source.volume = 1f - i -0.8f;
                 _black_screen.color = new Color(0, 0, 0, i / 1f);
                 yield return new WaitForEndOfFrame();
             }
@@ -104,7 +112,7 @@ namespace Managers
             while (i <= 1f)
             {
                 i += Time.deltaTime;
-                _audio_source.volume = 1f - i;
+                _audio_source.volume = 1f - i - 0.8f;
                 _black_screen.color = new Color(0, 0, 0, i / 1f);
                 yield return new WaitForEndOfFrame();
             }

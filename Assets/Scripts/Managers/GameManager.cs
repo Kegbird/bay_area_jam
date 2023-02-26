@@ -39,9 +39,14 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI _final_score_text;
     [SerializeField]
     private TextMeshProUGUI _survival_time_text;
+    public Texture2D cursorTexture;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
+
 
     private void Awake()
     {
+        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
         _game_over = false;
         SCORE = 0;
         SECONDS_OF_LIFE = 0;

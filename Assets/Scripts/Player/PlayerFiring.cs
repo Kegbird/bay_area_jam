@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using Utility;
 
 public class PlayerFiring : MonoBehaviour
@@ -58,6 +59,8 @@ public class PlayerFiring : MonoBehaviour
     private AudioClip _cowboy_fire_audio_clip;
     [SerializeField]
     private AudioClip _ninja_fire_audio_clip;
+    [SerializeField]
+    private Image _reload_bar;
 
     private void Awake()
     {
@@ -85,13 +88,13 @@ public class PlayerFiring : MonoBehaviour
 
         if (Input.GetMouseButton(0) && Time.time - _last_fire_timestamp >= _fire_cd)
         {
-            Vector3 weapon_hole_position = transform.position + aim_direction * 1.2f;
+            Vector3 weapon_hole_position = transform.position + aim_direction;
             _last_fire_timestamp = Time.time;
 
             if (_player_shake.GetCurrentBuild() == DiceBuild.NINJA)
-                StartCoroutine(NinjaFireMode(weapon_hole_position));
+                StartCoroutine(NinjaFireMode());
             else if (_player_shake.GetCurrentBuild() == DiceBuild.COWBOY)
-                StartCoroutine(CowboyFireMode(weapon_hole_position));
+                StartCoroutine(CowboyFireMode());
             else
             {
                 GameObject bullet = GameObject.Instantiate(_bullet, weapon_hole_position, rotation);
@@ -100,6 +103,10 @@ public class PlayerFiring : MonoBehaviour
                 //_audio_source.Play();
             }
         }
+        else
+        {
+            _reload_bar.fillAmount = (Time.time - _last_fire_timestamp) / _fire_cd;
+        }
     }
     public void Disable()
     {
@@ -107,7 +114,7 @@ public class PlayerFiring : MonoBehaviour
         _weapon.gameObject.SetActive(false);
     }
 
-    private IEnumerator NinjaFireMode(Vector3 weapon_hole_position)
+    private IEnumerator NinjaFireMode()
     {
         float time_between_shots = 0.1f;
         for(int i=0; i<3; i++)
@@ -126,6 +133,7 @@ public class PlayerFiring : MonoBehaviour
             _weapon.transform.rotation = rotation;
             _weapon.transform.position = weapon_position;
 
+            Vector3 weapon_hole_position = transform.position + aim_direction;
             GameObject bullet = GameObject.Instantiate(_bullet, weapon_hole_position, rotation);
             bullet.SetActive(true);
             bullet.GetComponent<PlayerBullet>().Fire(aim_direction);
@@ -135,7 +143,7 @@ public class PlayerFiring : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator CowboyFireMode(Vector3 weapon_hole_position)
+    private IEnumerator CowboyFireMode()
     {
         float time_between_shots = 0.2f;
         for (int i = 0; i < 2; i++)
@@ -154,6 +162,7 @@ public class PlayerFiring : MonoBehaviour
             _weapon.transform.rotation = rotation;
             _weapon.transform.position = weapon_position;
 
+            Vector3 weapon_hole_position = transform.position + aim_direction;
             GameObject bullet = GameObject.Instantiate(_bullet, weapon_hole_position, rotation);
             bullet.SetActive(true);
             bullet.GetComponent<PlayerBullet>().Fire(aim_direction);
@@ -210,6 +219,7 @@ public class PlayerFiring : MonoBehaviour
                 _fire_cd = 0.2f;
                 break;
             case DiceBuild.CHINCHILLA:
+                _reload_bar.fillAmount = 0f;
                 _weapon.GetComponent<SpriteRenderer>().sprite = null;
                 _fire_audio_clip = null;
                 _active = false;
