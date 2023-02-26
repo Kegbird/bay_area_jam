@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private PlayerFiring _player_firing;
     [SerializeField]
+    private PlayerAnimator _player_animator;
+    [SerializeField]
     private PlayerShake _player_shake;
     [SerializeField]
     private TextMeshProUGUI _score_text;
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviour
             SECONDS_OF_LIFE = Time.time - SECONDS_OF_LIFE;
             _game_over = true;
             _player_shake.Disable();
+            _player_animator.Die();
             _player_controller.Disable();
             _player_firing.Disable();
             EnemyKamikaze.ACTIVE = false;

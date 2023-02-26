@@ -29,6 +29,8 @@ namespace Enemy
         [SerializeField]
         private SpriteRenderer _sprite_renderer;
         [SerializeField]
+        private PlayerAnimator _player_animator;
+        [SerializeField]
         private Animator _animator;
         public static bool ACTIVE;
         [SerializeField]
@@ -51,6 +53,7 @@ namespace Enemy
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             _player_transform = player.gameObject.transform;
             _player_stats = player.GetComponent<PlayerStats>();
+            _player_animator = player.GetComponent<PlayerAnimator>();
 
             GameObject _logic = GameObject.FindGameObjectWithTag("Logic");
             _game_manager = _logic.GetComponent<GameManager>();
@@ -100,6 +103,7 @@ namespace Enemy
             float distance = Vector3.Distance(_player_transform.position, transform.position);
             if (distance <= _attack_range)
             {
+                _player_animator.HitFeedback();
                 _player_stats.DecreaseHp(_damage);
             }
             else

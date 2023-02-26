@@ -23,6 +23,8 @@ public class PlayerAnimator : MonoBehaviour
     private RuntimeAnimatorController _ninja_animator;
     [SerializeField]
     private RuntimeAnimatorController _chinchilla_animator;
+    [SerializeField]
+    private bool _left;
 
     private void Awake()
     {
@@ -62,23 +64,28 @@ public class PlayerAnimator : MonoBehaviour
     {
         if (movement_vector.x > 0)
         {
+            _left = false;
             _animator.SetBool("right", true);
             _animator.SetBool("left", false);
         }
         if (movement_vector.x < 0)
         {
+            _left = true;
             _animator.SetBool("left", true);
             _animator.SetBool("right", false);
         }
-        if (movement_vector.y > 0)
+        if(movement_vector.y!=0)
         {
-            _animator.SetBool("up", true);
-            _animator.SetBool("down", true);
-        }
-        if (movement_vector.y < 0)
-        {
-            _animator.SetBool("down", true);
-            _animator.SetBool("up", false);
+            if (!_left)
+            {
+                _animator.SetBool("right", true);
+                _animator.SetBool("left", false);
+            }
+            else
+            {
+                _animator.SetBool("left", true);
+                _animator.SetBool("right", false);
+            }
         }
         if (movement_vector.x == 0 && movement_vector.y == 0)
         {
@@ -90,8 +97,11 @@ public class PlayerAnimator : MonoBehaviour
     {
         _animator.SetBool("left", false);
         _animator.SetBool("right", false);
-        _animator.SetBool("down", false);
-        _animator.SetBool("up", false);
+    }
+
+    public void Die()
+    {
+        _animator.SetBool("dead", true);
     }
 
     public void HitFeedback()
@@ -103,7 +113,7 @@ public class PlayerAnimator : MonoBehaviour
     private IEnumerator HitFeedbackCoroutine()
     {
         _sprite_renderer.color = new Color(1, 0, 0);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         _sprite_renderer.color = new Color(1, 1, 1);
     }
 }

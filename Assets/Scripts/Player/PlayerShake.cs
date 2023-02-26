@@ -81,6 +81,7 @@ public class PlayerShake : MonoBehaviour
                 _build = DiceBuild.NORMAL;
                 _player_firing.Switch(_build);
                 _player_controller.Switch(_build);
+                _player_animator.Switch(_build);
                 _player_ui.HideBuildBar();
             }
         }
