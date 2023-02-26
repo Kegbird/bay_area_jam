@@ -16,11 +16,14 @@ namespace Pickup
         private bool _active;
         [SerializeField]
         private float _last_heal_timestamp;
+        [SerializeField]
+        private AudioSource _audio_source;
 
         private void Awake()
         {
             _active = true;
             _sprite_renderer = GetComponent<SpriteRenderer>();
+            _audio_source = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -46,6 +49,7 @@ namespace Pickup
                 _sprite_renderer.enabled = false;
                 _player_stats.IncreaseHp(_heal_amount);
                 _active = false;
+                _audio_source.Play();
             }
         }
     }

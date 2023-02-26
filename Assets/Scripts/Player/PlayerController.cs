@@ -62,22 +62,22 @@ namespace Player
                     _multiplier = 1f;
                     break;
                 case DiceBuild.NINJA:
-                    _multiplier = 3f;
+                    _multiplier = 1.5f;
                     break;
                 case DiceBuild.GENTLEMAN:
-                    _multiplier = 0.5f;
+                    _multiplier = 0.8f;
                     break;
                 case DiceBuild.SKATER:
-                    _multiplier = 2f;
+                    _multiplier = 1.25f;
                     break;
                 case DiceBuild.COWBOY:
                     _multiplier = 1f;
                     break;
                 case DiceBuild.KING:
-                    _multiplier = 0.7f;
+                    _multiplier = 0.6f;
                     break;
                 case DiceBuild.CHINCHILLA:
-                    _multiplier = 4f;
+                    _multiplier = 2f;
                     break;
             }
         }

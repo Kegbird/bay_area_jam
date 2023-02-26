@@ -109,11 +109,12 @@ MonoBehaviour:
   _damage: 15
   points: 20
   _movement_vector: {x: 0, y: 0}
-  _movement_speed: 3
+  _movement_speed: 1.5
   _rigidbody: {fileID: 0}
   _game_manager: {fileID: 0}
   _sprite_renderer: {fileID: 0}
   _animator: {fileID: 0}
+  _circle_collider: {fileID: 0}
 --- !u!50 &4107246895300818817
 Rigidbody2D:
   serializedVersion: 4

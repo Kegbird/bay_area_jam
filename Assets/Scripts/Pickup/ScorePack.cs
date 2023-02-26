@@ -57,7 +57,7 @@ namespace Pickup
                 _sprite_renderer.enabled = false;
                 _game_manager.IncreaseScore(_score_amount);
                 _active = false;
-                //_audio_source.Play();
+                _audio_source.Play();
             }
         }
     }

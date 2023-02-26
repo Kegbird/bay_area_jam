@@ -143,7 +143,7 @@ public class PlayerFiring : MonoBehaviour
             Vector3 mouse_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouse_position.z = transform.position.z;
 
-            Vector3 aim_direction = (mouse_position - transform.position).normalized * 0.2f;
+            Vector3 aim_direction = (mouse_position - transform.position).normalized * 0.5f;
             Vector3 weapon_position = Vector3.zero;
             weapon_position.x = transform.position.x + aim_direction.x;
             weapon_position.y = transform.position.y + aim_direction.y;
