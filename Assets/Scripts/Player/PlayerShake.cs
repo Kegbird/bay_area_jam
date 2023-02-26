@@ -25,6 +25,8 @@ public class PlayerShake : MonoBehaviour
     [SerializeField]
     private PlayerUI _player_ui;
     [SerializeField]
+    private GameObject _shake_gameobject;
+    [SerializeField]
     private bool _active;
 
     private void Awake()
@@ -67,6 +69,7 @@ public class PlayerShake : MonoBehaviour
             _player_firing.Switch(_build);
             _player_controller.Switch(_build);
             _player_animator.Switch(_build);
+            StartCoroutine(ShakeAnimation());
             _last_shake_timestamp = Time.time;
             _last_buld_reset_timestamp = Time.time;
             _player_ui.ShowBuildBar();
@@ -82,10 +85,18 @@ public class PlayerShake : MonoBehaviour
                 _player_firing.Switch(_build);
                 _player_controller.Switch(_build);
                 _player_animator.Switch(_build);
+                StartCoroutine(ShakeAnimation());
                 _player_ui.HideBuildBar();
             }
         }
         _player_ui.UpdateBuildBar(1-(Time.time - _last_buld_reset_timestamp) / _build_reset_cd);
+    }
+
+    IEnumerator ShakeAnimation()
+    {
+        _shake_gameobject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        _shake_gameobject.SetActive(false);
     }
 
     public DiceBuild GetCurrentBuild()
