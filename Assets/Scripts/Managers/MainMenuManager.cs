@@ -20,13 +20,8 @@ namespace Managers
         public Button _exit_button;
         public AudioSource _audio_source;
 
-        public Texture2D cursorTexture;
-        public CursorMode cursorMode = CursorMode.Auto;
-        public Vector2 hotSpot = Vector2.zero;
-
         private void Awake()
         {
-            Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
             _audio_source = GetComponent<AudioSource>();
         }
 

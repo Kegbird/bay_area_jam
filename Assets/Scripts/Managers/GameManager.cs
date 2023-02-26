@@ -39,14 +39,11 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI _final_score_text;
     [SerializeField]
     private TextMeshProUGUI _survival_time_text;
-    public Texture2D cursorTexture;
-    public CursorMode cursorMode = CursorMode.Auto;
-    public Vector2 hotSpot = Vector2.zero;
-
+    [SerializeField]
+    private PauseMenuManager _pause_manager;
 
     private void Awake()
     {
-        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
         _game_over = false;
         SCORE = 0;
         SECONDS_OF_LIFE = 0;
@@ -54,6 +51,7 @@ public class GameManager : MonoBehaviour
         EnemyTank.ACTIVE = true;
         _score_text.text = SCORE.ToString();
         _audio_source = GetComponent<AudioSource>();
+        _pause_manager = GetComponent<PauseMenuManager>();
     }
 
     private void Start()
@@ -116,7 +114,7 @@ public class GameManager : MonoBehaviour
         while (i <= 0.8f)
         {
             i += Time.deltaTime;
-            _audio_source.volume = 1f - i - 0.3f;
+            _audio_source.volume = 1f - i - 0.5f;
             _black_screen.color = new Color(0, 0, 0, i / 1f);
             yield return new WaitForEndOfFrame();
         }
@@ -131,10 +129,11 @@ public class GameManager : MonoBehaviour
         while (i >= 0)
         {
             i -= Time.deltaTime;
-            _audio_source.volume = 1f - i -0.3f;
+            _audio_source.volume = 1f - i -0.5f;
             _black_screen.color = new Color(0, 0, 0, i / 1f);
             yield return new WaitForEndOfFrame();
         }
         _black_screen.raycastTarget = false;
+        _pause_manager.enabled = true;
     }
 }
