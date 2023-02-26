@@ -108,10 +108,10 @@ public class GameManager : MonoBehaviour
     {
         _black_screen.raycastTarget = true;
         float i = 0;
-        while (i <= 1f)
+        while (i <= 0.8f)
         {
             i += Time.deltaTime;
-            _audio_source.volume = 1f - i;
+            _audio_source.volume = 1f - i - 0.5f;
             _black_screen.color = new Color(0, 0, 0, i / 1f);
             yield return new WaitForEndOfFrame();
         }
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
         while (i >= 0)
         {
             i -= Time.deltaTime;
-            _audio_source.volume = 1f - i;
+            _audio_source.volume = 1f - i -0.5f;
             _black_screen.color = new Color(0, 0, 0, i / 1f);
             yield return new WaitForEndOfFrame();
         }

@@ -10,7 +10,6 @@ namespace Managers
     public class MainMenuManager : MonoBehaviour
     {
         public Image _black_screen;
-        public TextMeshProUGUI _game_title;
         public TextMeshProUGUI _authors_text;
         public Image _commands_image;
         public Button _play_button;
@@ -32,7 +31,6 @@ namespace Managers
 
         public void CommandsButtonClick()
         {
-            _game_title.gameObject.SetActive(false);
             _credits_button.gameObject.SetActive(false);
             _commands_button.gameObject.SetActive(false);
             _exit_button.gameObject.SetActive(false);
@@ -45,7 +43,6 @@ namespace Managers
 
         public void CreditsButtonClick()
         {
-            _game_title.gameObject.SetActive(false);
             _credits_button.gameObject.SetActive(false);
             _commands_button.gameObject.SetActive(false);
             _exit_button.gameObject.SetActive(false);
@@ -61,7 +58,6 @@ namespace Managers
             _authors_text.gameObject.SetActive(false);
             _back_button.gameObject.SetActive(false);
 
-            _game_title.gameObject.SetActive(true);
             _credits_button.gameObject.SetActive(true);
             _commands_button.gameObject.SetActive(true);
             _exit_button.gameObject.SetActive(true);
