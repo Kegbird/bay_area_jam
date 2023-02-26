@@ -35,14 +35,18 @@ namespace Enemy
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-            for (int i = 0; i < _initial_number_of_enemies; i++)
-                GenerateEnemy();
-
             StartCoroutine(EnemySpawnerCoroutine());
         }
 
         private IEnumerator EnemySpawnerCoroutine()
         {
+            yield return new WaitForSeconds(3f);
+            for (int i = 0; i < _initial_number_of_enemies; i++)
+            {
+                yield return new WaitForSeconds(0.5f);
+                GenerateEnemy();
+            }
+
             while (!_game_manager.IsGameOver())
             {
                 GenerateEnemy();
@@ -53,7 +57,7 @@ namespace Enemy
 
         private void GenerateEnemy()
         {
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 20; j++)
             {
                 int i = Random.Range(0, _spawns.transform.childCount);
                 if (!_spawns.transform.GetChild(i).GetComponent<SpriteRenderer>().isVisible)

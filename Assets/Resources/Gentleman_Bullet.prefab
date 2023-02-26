@@ -138,4 +138,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bullet_speed: 50
   _rigidbody: {fileID: 0}
-  _damage: 45
+  _damage: 100

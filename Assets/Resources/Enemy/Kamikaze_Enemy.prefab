@@ -106,15 +106,16 @@ MonoBehaviour:
   _player_stats: {fileID: 0}
   _player_animator: {fileID: 0}
   _hp: 15
-  _damage: 15
+  _damage: 20
   points: 20
   _movement_vector: {x: 0, y: 0}
-  _movement_speed: 1.5
+  _movement_speed: 2
   _rigidbody: {fileID: 0}
   _game_manager: {fileID: 0}
   _sprite_renderer: {fileID: 0}
   _animator: {fileID: 0}
   _circle_collider: {fileID: 0}
+  _audio_source: {fileID: 0}
 --- !u!50 &4107246895300818817
 Rigidbody2D:
   serializedVersion: 4
@@ -182,7 +183,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 67da229b7d42da1469795256c53dab64, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

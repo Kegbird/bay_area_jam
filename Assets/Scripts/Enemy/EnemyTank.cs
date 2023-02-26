@@ -37,6 +37,8 @@ namespace Enemy
         private float _attack_range;
         [SerializeField]
         private CircleCollider2D _circle_collider;
+        [SerializeField]
+        private AudioSource _audio_source;
 
         private void Awake()
         {
@@ -46,6 +48,7 @@ namespace Enemy
             _rigidbody = GetComponent<Rigidbody2D>();
             _sprite_renderer = GetComponent<SpriteRenderer>();
             _circle_collider = GetComponent<CircleCollider2D>();
+            _audio_source = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -125,6 +128,7 @@ namespace Enemy
                 _circle_collider.enabled = false;
                 _animator.SetBool("attack", false);
                 _animator.SetBool("dead", true);
+                _audio_source.Play();
             }
             else
             {

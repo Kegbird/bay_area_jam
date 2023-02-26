@@ -34,6 +34,8 @@ namespace Enemy
         private Animator _animator;
         [SerializeField]
         private CircleCollider2D _circle_collider;
+        [SerializeField]
+        private AudioSource _audio_source;
         public static bool ACTIVE;
 
         private void Awake()
@@ -44,6 +46,7 @@ namespace Enemy
             _rigidbody = GetComponent<Rigidbody2D>();
             _sprite_renderer = GetComponent<SpriteRenderer>();
             _circle_collider = GetComponent<CircleCollider2D>();
+            _audio_source = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -97,6 +100,7 @@ namespace Enemy
                 _player_stats.DecreaseHp(_damage);
                 _circle_collider.enabled = false;
                 _animator.SetBool("dead", true);
+                _audio_source.Play();
             }
         }
 
@@ -111,6 +115,7 @@ namespace Enemy
                 _game_manager.IncreaseScore(points);
                 _circle_collider.enabled = false;
                 _animator.SetBool("dead", true);
+                _audio_source.Play();
             }
             else
             {

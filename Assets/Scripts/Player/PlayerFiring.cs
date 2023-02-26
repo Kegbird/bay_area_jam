@@ -65,6 +65,7 @@ public class PlayerFiring : MonoBehaviour
     private void Awake()
     {
         _player_shake = GetComponent<PlayerShake>();
+        _audio_source = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -100,7 +101,7 @@ public class PlayerFiring : MonoBehaviour
                 GameObject bullet = GameObject.Instantiate(_bullet, weapon_hole_position, rotation);
                 bullet.SetActive(true);
                 bullet.GetComponent<PlayerBullet>().Fire(aim_direction);
-                //_audio_source.Play();
+                _audio_source.Play();
             }
         }
         else
@@ -108,6 +109,7 @@ public class PlayerFiring : MonoBehaviour
             _reload_bar.fillAmount = (Time.time - _last_fire_timestamp) / _fire_cd;
         }
     }
+    
     public void Disable()
     {
         _active = false;
@@ -137,7 +139,7 @@ public class PlayerFiring : MonoBehaviour
             GameObject bullet = GameObject.Instantiate(_bullet, weapon_hole_position, rotation);
             bullet.SetActive(true);
             bullet.GetComponent<PlayerBullet>().Fire(aim_direction);
-            //_audio_source.Play();
+            _audio_source.Play();
             yield return new WaitForSeconds(time_between_shots);
         }
         yield return null;
@@ -166,7 +168,7 @@ public class PlayerFiring : MonoBehaviour
             GameObject bullet = GameObject.Instantiate(_bullet, weapon_hole_position, rotation);
             bullet.SetActive(true);
             bullet.GetComponent<PlayerBullet>().Fire(aim_direction);
-            //_audio_source.Play();
+            _audio_source.Play();
             yield return new WaitForSeconds(time_between_shots);
         }
         yield return null;
@@ -195,7 +197,7 @@ public class PlayerFiring : MonoBehaviour
                 _fire_audio_clip = _gentleman_fire_audio_clip;
                 _bullet = _gentleman_bullet;
                 _active = true;
-                _fire_cd = 1.5f;
+                _fire_cd = 1f;
                 break;
             case DiceBuild.SKATER:
                 _weapon.GetComponent<SpriteRenderer>().sprite = _skater_weapon;

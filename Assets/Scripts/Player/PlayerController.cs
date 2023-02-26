@@ -65,7 +65,7 @@ namespace Player
                     _multiplier = 1.5f;
                     break;
                 case DiceBuild.GENTLEMAN:
-                    _multiplier = 0.8f;
+                    _multiplier = 1f;
                     break;
                 case DiceBuild.SKATER:
                     _multiplier = 1.25f;
